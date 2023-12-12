@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <link rel="stylesheet" href="./styleotp.css">
+
+</head>
+<body>
+    <div class="otp-container">
+        <h1>OTP Verification</h1>
+        <input type="text" id="otp" placeholder="Enter OTP">
+        <button id="verify">Verify</button>
+    </div>
+    <script>
+        document.getElementById('verify').addEventListener('click', function () {
+            var otp = document.getElementById('otp').value;
+            fetch('YOUR_API_ENDPOINT', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ otp: otp })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.valid) {
+                    alert('OTP verified successfully');
+                } else {
+                    alert('Invalid OTP');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error occurred during verification');
+            });
+        });
+    </script>
+</body>
+</html>
